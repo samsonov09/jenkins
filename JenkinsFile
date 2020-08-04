@@ -1,0 +1,28 @@
+
+stage('Slack Notification') {
+  steps {
+   script {
+    if (currentBuild.result == "SUCCESS") {
+        slackSend channel: 'sf-qa-security-api',
+        color: '#2EB67D',
+        message: "Status: SUCCESS \nJobName: ${env.JOB_NAME}, BuildNumber: [${env.BUILD_NUMBER}] \n ${env.BUILD_URL} \n "
+    }
+    
+    else if (currentBuild.result == "FAILURE") {
+        slackSend channel: 'sf-qa-security-api',
+        color: '#7A1C1D',
+        message: "Status: FAILURE \nJobName: ${env.JOB_NAME}, BuildNumber: [${env.BUILD_NUMBER}] \n ${env.BUILD_URL} \n "
+    }
+    else if (currentBuild.result == "UNSTABLE") {
+        slackSend channel: 'sf-qa-security-api',
+        color: '#EBDA26',
+        message: "Status: UNSTABLE \nJobName: ${env.JOB_NAME}, BuildNumber: [${env.BUILD_NUMBER}] \n ${env.BUILD_URL} \n "
+    }
+    else {
+         slackSend channel: 'sf-qa-security-api',
+         color: '#2EB67D'
+         message: "Status: ABORTED \nJobName: ${env.JOB_NAME}, BuildNumber: [${env.BUILD_NUMBER}] \n ${env.BUILD_URL} \n "
+    }
+   }
+  }
+ }
