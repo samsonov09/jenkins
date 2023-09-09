@@ -1,4 +1,4 @@
-# stage to send slack notification + build status for revieew
+# stage to send slack notification + build status for review
 
 stage('Slack Notification') {
    steps {
